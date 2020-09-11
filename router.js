@@ -88,6 +88,18 @@ router.route('/cart/:id').put((req, res, next) => {
 });
 
 router.route('/cart/:id').delete((req, res, next) => {
+  cart.findByIdAndRemove(req.params.id, (error, data) => {
+    if (error) {
+      return next(error);
+    } else {
+      res.status(200).json({
+        msg: data,
+      });
+    }
+  });
+});
+
+router.route('/cart/:id').delete((req, res, next) => {
   cart.deleteMany({ prod_id: req.params.id }, (error, data) => {
     if (error) {
       return next(error);
